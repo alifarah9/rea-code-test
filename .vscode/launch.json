@@ -1,0 +1,28 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+  
+		{
+			"name": "Launch",
+			"type": "go",
+			"request": "launch",
+			"mode": "debug",
+			"remotePath": "",
+			"port": 2345,
+			"host": "127.0.0.1",
+			"program": "${workspaceFolder}/main.go",
+			"env": {},
+      "showLog": true,
+      "buildFlags":"",
+
+			"dlvLoadConfig": {
+        "useApiV1": false,
+				"followPointers": true,
+				"maxVariableRecurse": 1,
+				"maxStringLen":600,
+				"maxArrayValues": 600,
+				"maxStructFields": -1
+		}
+		}
+	]
+}
