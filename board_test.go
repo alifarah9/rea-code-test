@@ -1,27 +1,36 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
+	"strings"
 	"testing"
 )
 
-func TestMain(t *testing.T) {
-	main()
-	/*
-		var testCommands = []string{
-			"PLACE 1,2,EAST",
-			"MOVE",
-			"MOVE",
-			"LEFT",
-			"MOVE",
-			"REPORT",
-		}
+func TestToyRobot(t *testing.T) {
 
-		board := &Board{}
+	var testCommands = []string{
+		"PLACE 1,2,EAST",
+		"MOVE",
+		"MOVE",
+		"LEFT",
+		"MOVE",
+		"REPORT",
+	}
 
-		for n, test := range testCommands {
-			buf := strings.NewReader(test)
-			s := bufio.NewScanner(buf)
+	board := &Board{}
+	_ = board
+	for n, test := range testCommands {
+		buf := strings.NewReader(test)
+		s := bufio.NewScanner(buf)
+		s.Split(bufio.ScanWords)
+		token := s.Text()
+		fmt.Println("d")
 
-		} */
+		_ = token
+		_ = n
+		_ = s
+
+	}
 
 }

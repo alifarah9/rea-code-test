@@ -19,11 +19,15 @@ func main() {
 	var fileOpt bool
 	file, err := os.Open("./data.txt")
 
-	flag.BoolVar(&fileOpt, "file", true, "Read data from a file")
-	flag.Parse()
 	if err != nil {
 		panic(err)
 	}
+
+	flag.BoolVar(&fileOpt, "file", true, "Read data from a file")
+	//Check if --file is present and set the value passed to fileOpt
+	flag.Parse()
+
+	//Declare a scanner used to parse input data
 	var scanner *bufio.Scanner
 
 	board := &Board{}
@@ -41,8 +45,6 @@ func main() {
 
 	// Scan the file line by line and run method corresponding to
 	// the command
-	// Note: If PLACE is found, scanner is executed again the to get the
-	// position data
 	for scanner.Scan() {
 		token := scanner.Text()
 		board.executeCommand(token, scanner)

@@ -1,23 +1,25 @@
-## Alinta code test
-
-* App is initialised with four customers.
-* To delete a customer select one from the list and hit the delete button on the left.
-* To add a customer enter the details in the form fields and hit the "add" button.
-* To edit customer select one from the list and hit the "update" button.
+## REA Group code test
 
 ## Development
 
 Install Go if not already installed `https://golang.org/doc/install`
-Inside the root directory run
-```bash
-$ go run main.go
-```
-Which will use the test data inside the file `data.txt`.
 
-To use data from input commands on the terminal just pass the flag `--input`
+Go to the the root directory of project and run the command
 
 ```bash
-$ go run main.go --input
+$ go run .
+```
+Which will use the test data inside the file  named `data.txt`.
+
+To use data from input commands on the terminal instead, just pass the flag `--false`
+
+```bash
+$ go run . --file=false
 ```
 
+To run (very) basic tests run
+
+```bash
+$ go test
+```
 [Still in progress]
