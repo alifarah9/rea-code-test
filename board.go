@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -31,9 +32,9 @@ func (b *Board) Move() {
 	case SOUTH:
 		b.Validate(b.x, b.y-1)
 	case EAST:
-		b.Validate(b.x+1, b.y)
-	case WEST:
 		b.Validate(b.x-1, b.y)
+	case WEST:
+		b.Validate(b.x+1, b.y)
 	}
 }
 
@@ -42,7 +43,7 @@ func (b *Board) Validate(x int, y int) bool {
 		return false
 	}
 	// Check if given positions are valid
-	if x > -1 && x < 6 && y > -1 && y < 6 {
+	if x > -1 && x < 5 && y > -1 && y < 5 {
 		b.x = x
 		b.y = y
 		return true
@@ -91,7 +92,14 @@ func (b *Board) Place(scanner *bufio.Scanner) {
 	// Excecute scanner to get next token for the PLACE command i.e (X,Y,F)
 	scanner.Scan()
 	//
-	s := strings.Split(scanner.Text(), ",")
+	position := scanner.Text()
+
+	match, _ := regexp.MatchString("^([0-5]),([0-5]),(NORTH|SOUTH|EAST|WEST)", position)
+	if !match {
+		scanner.Scan()
+		return
+	}
+	s := strings.Split(position, ",")
 	// Convert the string into integer, check for errors,
 	// and then initialise board position
 	x, err := strconv.Atoi(s[0])
