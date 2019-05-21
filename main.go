@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"flag"
-	"fmt"
 	"os"
 )
 
@@ -14,6 +13,8 @@ const (
 	RIGHT  = "RIGHT"
 	REPORT = "REPORT"
 )
+
+var scanner *bufio.Scanner
 
 func main() {
 	var fileOpt bool
@@ -28,7 +29,6 @@ func main() {
 	flag.Parse()
 
 	//Declare a scanner used to parse input data
-	var scanner *bufio.Scanner
 
 	board := &Board{}
 
@@ -43,25 +43,9 @@ func main() {
 	// Set the Split method to ScanWords.
 	scanner.Split(bufio.ScanWords)
 
-	// Scan the file line by line and run method corresponding to
-	// the command
+	// Scan the file line by line and run method corresponding to the command
 	for scanner.Scan() {
 		token := scanner.Text()
-		board.executeCommand(token, scanner)
-	}
-}
-
-func (board *Board) executeCommand(command string, scanner *bufio.Scanner) {
-	switch command {
-	case PLACE:
-		board.Place(scanner)
-	case MOVE:
-		board.Move()
-	case LEFT:
-		board.MoveLeft()
-	case RIGHT:
-		board.MoveRight()
-	case REPORT:
-		fmt.Printf("%d,%d,%s\n", board.x, board.y, board.Facing)
+		board.executeCommand(token)
 	}
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -20,6 +20,21 @@ type Board struct {
 	Facing string
 }
 
+func (board *Board) executeCommand(command string) {
+	switch command {
+	case PLACE:
+		board.Place()
+	case MOVE:
+		board.Move()
+	case LEFT:
+		board.MoveLeft()
+	case RIGHT:
+		board.MoveRight()
+	case REPORT:
+		fmt.Printf("%d,%d,%s\n", board.x, board.y, board.Facing)
+	}
+}
+
 func (b *Board) Move() {
 	if b.Facing == "" {
 		return
@@ -28,13 +43,21 @@ func (b *Board) Move() {
 	// in that direction if new position is valid.
 	switch b.Facing {
 	case NORTH:
-		b.Validate(b.x, b.y+1)
+		if b.Validate(b.x, b.y+1) {
+			b.y = b.y + 1
+		}
 	case SOUTH:
-		b.Validate(b.x, b.y-1)
+		if b.Validate(b.x, b.y-1) {
+			b.y = b.y - 1
+		}
 	case EAST:
-		b.Validate(b.x-1, b.y)
+		if b.Validate(b.x-1, b.y) {
+			b.x = b.x - 1
+		}
 	case WEST:
-		b.Validate(b.x+1, b.y)
+		if b.Validate(b.x+1, b.y) {
+			b.x = b.x + 1
+		}
 	}
 }
 
@@ -44,8 +67,6 @@ func (b *Board) Validate(x int, y int) bool {
 	}
 	// Check if given positions are valid
 	if x > -1 && x < 5 && y > -1 && y < 5 {
-		b.x = x
-		b.y = y
 		return true
 	}
 	return false
@@ -88,12 +109,10 @@ func (b *Board) MoveRight() {
 	}
 }
 
-func (b *Board) Place(scanner *bufio.Scanner) {
+func (b *Board) Place() {
 	// Excecute scanner to get next token for the PLACE command i.e (X,Y,F)
 	scanner.Scan()
-	//
 	position := scanner.Text()
-
 	match, _ := regexp.MatchString("^([0-5]),([0-5]),(NORTH|SOUTH|EAST|WEST)", position)
 	if !match {
 		scanner.Scan()
