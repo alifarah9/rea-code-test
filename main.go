@@ -3,7 +3,8 @@ package main
 import (
 	"bufio"
 	"flag"
-	"os"
+  "os"
+  "log"
 )
 
 const (
@@ -21,26 +22,22 @@ func main() {
 	file, err := os.Open("./data.txt")
 
 	if err != nil {
-		panic(err)
-	}
+    log.Fatalf("Error, cannot open file %v", err)
+  }
 
 	flag.BoolVar(&fileOpt, "file", true, "Read data from a file")
-	//Check if --file is present and set the value passed to fileOpt
 	flag.Parse()
 
-	//Declare a scanner used to parse input data
 
 	board := &Board{}
 
-	// Check if fileOpt is passed to decide whether to get data
-	// from a file or standard input
+	// Check if fileOpt is passed to decide whether to get data from a file or standard input
 	if fileOpt {
 		scanner = bufio.NewScanner(file)
 	} else {
 		scanner = bufio.NewScanner(os.Stdin)
 	}
 
-	// Set the Split method to ScanWords.
 	scanner.Split(bufio.ScanWords)
 
 	// Scan the file line by line and run method corresponding to the command
