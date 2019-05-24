@@ -264,7 +264,7 @@ func TestValidate(t *testing.T) {
 				Facing: tt.board.Facing,
 			}
 
-			result := board.Validate(board.x, board.y)
+			result := board.Valid(board.x, board.y)
 
 			if result != tt.want {
 				t.Fatal()

@@ -43,25 +43,25 @@ func (b *Board) Move() {
 	// in that direction if new position is valid.
 	switch b.Facing {
 	case NORTH:
-		if b.Validate(b.x, b.y+1) {
+		if b.Valid(b.x, b.y+1) {
 			b.y = b.y + 1
 		}
 	case SOUTH:
-		if b.Validate(b.x, b.y-1) {
+		if b.Valid(b.x, b.y-1) {
 			b.y = b.y - 1
 		}
 	case EAST:
-		if b.Validate(b.x-1, b.y) {
+		if b.Valid(b.x-1, b.y) {
 			b.x = b.x - 1
 		}
 	case WEST:
-		if b.Validate(b.x+1, b.y) {
+		if b.Valid(b.x+1, b.y) {
 			b.x = b.x + 1
 		}
 	}
 }
 
-func (b *Board) Validate(x int, y int) bool {
+func (b *Board) Valid(x int, y int) bool {
 	if b.Facing == "" {
 		return false
 	}
